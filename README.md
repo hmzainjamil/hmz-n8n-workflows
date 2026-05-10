@@ -1,31 +1,61 @@
-# HMZ n8n Automation Workflow Library
-## By Hafiz Muhammad Zulqarnain (hmzainjamil) — Curated & Organized
+# hmz-n8n-workflows
 
-**8,159 production-ready n8n automation workflows** — hand-selected, categorized, and integrated into the HMZ AI Agency System.
+> **8,159 production-ready n8n automation workflows** — the largest curated n8n library for agency, marketing, and AI automation use cases.
 
-> **HMZ Integration**: These workflows power the backend of HMZ's AI agency operations — lead generation, client outreach, reporting, and campaign management.
+Part of the [HMZ AI System](https://github.com/hmzainjamil/claude-ai-system).
 
-## Categories
+---
 
-| Category | Count | HMZ Use Case |
-|---|---|---|
-| Gmail/Email | 874 | Client outreach sequences, lead nurturing |
-| Slack | 328 | Agency team alerts, campaign notifications |
-| Telegram | 309 | Real-time lead alerts, client updates |
-| Social Media | 197 | Content scheduling, engagement monitoring |
-| CRM/Sales | 121 | Lead scoring, Apollo sync, pipeline tracking |
-| AI/GPT/LLM | ~400 | Content generation, ad copy, analysis |
-| Ecommerce | 82 | Shopify client campaigns, order tracking |
-| Data/Reporting | ~200 | KPI dashboards, campaign reports |
+## Scale
 
-## Quick Start
+| Metric | Count |
+|---|---|
+| Total workflows | 8,159 |
+| Gmail / Email automations | 874 |
+| Telegram bot workflows | 309 |
+| Slack automations | 328 |
+| Social media flows | 197 |
+| CRM / Lead gen flows | 121 |
+| Shopify / E-commerce | 82 |
+
+## Top Categories
+
+### 📧 Gmail / Email (874 workflows)
+Cold outreach sequences, inbox automation, email → Airtable pipelines, bounce handling, reply detection, Mailchimp sync.
+
+### 💬 Slack (328 workflows)
+Alert routing, standup bots, lead notification, Claude Code → Slack bridges, channel management.
+
+### 🤖 AI / GPT / LLM (varied)
+OpenAI API integrations, Claude pipelines, prompt chaining, RAG workflows, AI content generators.
+
+### 📊 Google Sheets (varied)
+Lead imports, ad reporting sync, KPI dashboards, scheduled data pulls, formula automation.
+
+### 📱 Social Media (197 workflows)
+Instagram scheduling, Twitter/X auto-post, LinkedIn content, TikTok caption generation.
+
+## How to Use
 
 ```bash
-git clone https://github.com/hmzainjamil/hmz-n8n-workflows
-# Open n8n → Import workflow → select any JSON from workflows/
+# Search by keyword
+grep -i "shopify" ~/installed-repos/n8nworkflows.xyz/workflow_index.txt
+
+# Browse by category
+ls ~/installed-repos/n8nworkflows.xyz/workflows/ | grep -i "gmail"
+
+# Load in n8n
+# Import any .json file via n8n UI → Settings → Import Workflow
 ```
 
-## HMZ System Integration
-These workflows connect to: Apollo MCP · Vibe Prospecting · Gmail · Slack · Airtable · Google Sheets
+## Integration with HMZ Stack
 
-Part of [claude-ai-system](https://github.com/hmzainjamil/claude-ai-system)
+Workflows auto-suggested by `optimize-commands` skill based on task keywords:
+- Say "send cold email" → suggested Gmail/SMTP workflows
+- Say "notify slack" → suggested Slack workflows
+- Say "sync leads to crm" → suggested Apollo/HubSpot workflows
+
+---
+
+**Owner:** [Hafiz Muhammad Zulqarnain](https://github.com/hmzainjamil) — SEM/PPC Specialist & AI Automation Engineer  
+**Main repo:** [claude-ai-system](https://github.com/hmzainjamil/claude-ai-system)
