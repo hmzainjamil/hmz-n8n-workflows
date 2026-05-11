@@ -1,324 +1,162 @@
-# hmz-n8n-workflows — 8,159 n8n Workflow JSON Files
+<p align="center">
+  <img src="https://img.shields.io/badge/HMZ-N8N%20WORKFLOWS-F86606?style=for-the-badge&logoColor=white" alt="HMZ n8n Workflows" height="60">
+</p>
 
-> **The largest personal n8n workflow library. 8,159 automation templates across every business function.**
+<h1 align="center">HMZ n8n Workflows</h1>
+
+<p align="center">
+  <strong>8,159 production-ready n8n automation workflows — Gmail, Slack, CRM, Shopify, AI/LLM, and 50+ platforms</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/hmzainjamil"><img src="https://img.shields.io/badge/By-HMZ-6C3EE8?style=for-the-badge" alt="By HMZ"></a>
+  <a href="#categories"><img src="https://img.shields.io/badge/Workflows-8%2C159-F86606?style=for-the-badge" alt="8159 Workflows"></a>
+  <a href="#categories"><img src="https://img.shields.io/badge/Categories-14-20A34E?style=for-the-badge" alt="14 Categories"></a>
+  <a href="#"><img src="https://img.shields.io/badge/n8n-Compatible-246DFF?style=for-the-badge" alt="n8n Compatible"></a>
+  <a href="https://github.com/hmzainjamil/hmz-n8n-workflows/stargazers"><img src="https://img.shields.io/github/stars/hmzainjamil/hmz-n8n-workflows?style=for-the-badge&color=9D97F4&label=Stars" alt="Stars"></a>
+</p>
+
+<p align="center">
+  <a href="#overview">Overview</a> &bull;
+  <a href="#quick-start">Quick Start</a> &bull;
+  <a href="#categories">Categories</a> &bull;
+  <a href="#use-cases">Use Cases</a> &bull;
+  <a href="#installation">Installation</a> &bull;
+  <a href="#resources">Resources</a>
+</p>
 
 ---
 
 ## Overview
 
-`hmz-n8n-workflows` is a curated collection of 8,159 n8n workflow JSON files organized by business function. It represents years of community-built automation templates, hand-selected and organized for agency operations.
+**HMZ n8n Workflows** is a curated library of 8,159 production-ready n8n automation JSON files, organized by platform and use case. Import any workflow into your n8n instance — or ask Claude Code to find and adapt the right one for your use case.
 
-These workflows power the HMZ agency's backend automation layer: from BDM outreach to client reporting, lead nurturing to social media scheduling. Every workflow is importable directly into any n8n instance.
-
-**Total workflows: 8,159**
-**Total categories: 25+**
-**Ready to import: Yes (JSON format)**
-
----
-
-## Workflow Categories & Counts
-
-| Category | Count | Primary Use |
-|----------|-------|------------|
-| Gmail / Email | 874 | Cold outreach, follow-ups, notifications |
-| Slack | 328 | Team alerts, client updates, notifications |
-| Telegram | 309 | Personal automation, bot messaging |
-| AI / LLM | 400+ | GPT, Claude, Gemini integrations |
-| CRM / Sales | 121 | Pipeline management, deal tracking |
-| LinkedIn | 80+ | Profile scraping, connection automation |
-| Google Sheets | 200+ | Data sync, reporting, dashboards |
-| Airtable | 150+ | Database operations, CRM records |
-| Social Media | 197 | Posting, scheduling, engagement |
-| E-commerce | 82 | Orders, inventory, customer data |
-| SEO / Content | 100+ | Keyword research, content generation |
-| Data / Reporting | 200+ | Analytics, dashboards, exports |
-| Webhook | 300+ | API integrations, event triggers |
-| Database | 150+ | MySQL, PostgreSQL, MongoDB |
-| Google Workspace | 250+ | Docs, Sheets, Calendar, Drive |
-| HubSpot | 75 | CRM sync, deal automation |
-| Salesforce | 45 | Enterprise CRM workflows |
-| Stripe | 60 | Payment processing, invoicing |
-| Notion | 90+ | Knowledge base, project management |
-| Discord | 65 | Community management, alerts |
-| Twitter/X | 80 | Social automation (read-only) |
-| YouTube | 40 | Content tracking, analytics |
-| Calendly | 35 | Meeting scheduling, CRM sync |
-| Typeform | 45 | Form processing, lead capture |
-| Other/Misc | 1,000+ | Custom integrations, utilities |
+What makes this library different:
+- **8,159 workflows** — largest private n8n collection, covering virtually every automation use case
+- **Claude Code searchable** — the full manifest is indexed; ask "find me a workflow for Gmail → Airtable lead capture" and Claude finds it in seconds
+- **14 categories** — Gmail/Email, Slack, LinkedIn, CRM, Shopify, AI/LLM, Telegram, Google Sheets, and more
+- **Production-tested** — workflows sourced from n8nworkflows.xyz, the largest community collection
 
 ---
 
-## Key Workflow Bundles
-
-### 1. BDM (Business Development) Pipeline
-
-The most critical bundle for HMZ operations. Automates the entire business development cycle.
-
-**Workflows included:**
-- `linkedin-job-search-auto-apply.json` — Searches LinkedIn for matching jobs
-- `indeed-job-scraper.json` — Scrapes Indeed job posts matching HMZ criteria
-- `lead-qualifier-score.json` — Scores leads against criteria (budget, fit, timeline)
-- `cover-letter-ai-generator.json` — Generates tailored cover letters via GPT-4o-mini
-- `application-tracker-airtable.json` — Logs all applications to Airtable
-- `follow-up-sequence-gmail.json` — 3-touch follow-up sequence after application
-- `meeting-book-calendly.json` — Auto-books discovery calls when leads respond
-
-**Trigger:** New job post matching keywords → full pipeline runs automatically
-
-```
-LinkedIn/Indeed Job Post
-    |
-    v
-Filter: Keywords + Budget + Location
-    |
-    v
-Qualify: HMZ scoring rubric
-    |
-    v (if score >= 70)
-Generate: Cover letter (GPT-4o-mini)
-    |
-    v
-Send: Gmail application
-    |
-    v
-Log: Airtable record
-    |
-    v
-Schedule: Follow-up sequence (Day 3, Day 7, Day 14)
-```
-
-### 2. Lead Nurture Sequences
-
-Email sequences for warming prospects who haven't responded.
-
-**Workflows:**
-- `nurture-cold-day1.json` — Initial value-add email
-- `nurture-cold-day3.json` — Case study / social proof
-- `nurture-cold-day7.json` — Direct ask / offer
-- `nurture-cold-day14.json` — Final breakup email
-- `nurture-warm-retargeting.json` — For prospects who opened but didn't respond
-- `nurture-reengagement.json` — For dormant leads (30+ days)
-
-### 3. Weekly Client Reporting
-
-Automated weekly performance reports for all active clients.
-
-**Workflows:**
-- `google-ads-weekly-pull.json` — Pulls metrics from Google Ads API
-- `meta-ads-weekly-pull.json` — Pulls Facebook/Instagram ad metrics
-- `ga4-weekly-traffic.json` — Pulls website analytics
-- `report-compiler.json` — Merges all data into a report template
-- `report-pdf-generator.json` — Generates branded PDF via ReportLab
-- `report-send-client.json` — Emails report to client with Gmail
-- `report-log-sheets.json` — Logs metrics to Google Sheets dashboard
-
-**Schedule:** Every Monday 8AM → full report delivered to client inbox by 9AM
-
-### 4. AI/LLM Integration Workflows (400+)
-
-The largest AI automation collection in the library.
-
-**Subcategories:**
-- **OpenAI workflows (150+):** GPT-4, GPT-3.5, DALL-E, Whisper integrations
-- **Claude workflows (80+):** Anthropic API, Claude Code triggers
-- **Gemini workflows (60+):** Google AI Studio, Vertex AI
-- **Ollama workflows (40+):** Local LLM automation
-- **Multi-model workflows (70+):** Routing across providers
-
-**Highlight workflows:**
-- `ai-email-responder.json` — AI reads incoming emails and drafts responses
-- `ai-content-repurposer.json` — Converts blog posts to 5 social formats
-- `ai-ad-copy-generator.json` — Generates 10 ad variants per prompt
-- `ai-competitor-monitor.json` — Monitors competitor websites, summarizes changes
-- `ai-lead-scoring.json` — Scores inbound leads via LLM analysis
-- `ai-proposal-drafter.json` — Auto-drafts client proposals from intake form
-
-### 5. Social Media Automation (197 Workflows)
-
-**Platforms covered:**
-- LinkedIn (posting, engagement — read-only compliant)
-- Twitter/X (posting via API)
-- Instagram (via Facebook Graph API)
-- YouTube (upload notifications, analytics)
-- Discord (community management)
-
-**Key workflows:**
-- `linkedin-post-scheduler.json` — Posts LinkedIn content on schedule
-- `content-repurpose-multi-platform.json` — One piece → 5 platforms
-- `social-engagement-monitor.json` — Tracks mentions and comments
-- `reddit-post-throttle.json` — Posts to Reddit with mandatory delay (max 1/day to avoid ban detection)
-
-### 6. Google Workspace Integration (250+ Workflows)
-
-- **Sheets:** Data sync, formula automation, dashboard updates
-- **Docs:** Auto-generate documents from templates
-- **Drive:** File organization, sharing permissions
-- **Calendar:** Meeting scheduling, reminder sequences
-- **Gmail:** Email parsing, auto-labeling, draft generation
-
----
-
-## Directory Structure
-
-```
-hmz-n8n-workflows/
-  email/
-    gmail/
-      cold-outreach/     (50+ workflows)
-      follow-up/         (40+ workflows)
-      notifications/     (30+ workflows)
-    smtp/                (20+ workflows)
-  
-  crm/
-    hubspot/             (75 workflows)
-    salesforce/          (45 workflows)
-    airtable/            (150+ workflows)
-    pipedrive/           (30 workflows)
-  
-  ai-llm/
-    openai/              (150+ workflows)
-    anthropic/           (80+ workflows)
-    google-gemini/       (60+ workflows)
-    ollama/              (40+ workflows)
-    multi-model/         (70+ workflows)
-  
-  social/
-    linkedin/            (80+ workflows)
-    twitter/             (80 workflows)
-    instagram/           (40 workflows)
-    discord/             (65 workflows)
-  
-  reporting/
-    google-ads/          (40 workflows)
-    meta-ads/            (35 workflows)
-    analytics/           (50+ workflows)
-    pdf-export/          (30 workflows)
-  
-  productivity/
-    google-workspace/    (250+ workflows)
-    notion/              (90+ workflows)
-    slack/               (328 workflows)
-    telegram/            (309 workflows)
-  
-  ecommerce/
-    shopify/             (40 workflows)
-    stripe/              (60 workflows)
-    woocommerce/         (25 workflows)
-  
-  data/
-    database/            (150+ workflows)
-    webhooks/            (300+ workflows)
-    transformations/     (100+ workflows)
-```
-
----
-
-## How to Import Workflows
-
-### Method 1: n8n UI
-
-1. Open n8n (http://localhost:5678)
-2. Click "Workflows" in sidebar
-3. Click "Import" button
-4. Select any `.json` file from this repo
-
-### Method 2: n8n CLI
+## Quick Start
 
 ```bash
-# Import a single workflow
-n8n import:workflow --input=./email/gmail/cold-outreach/cold-email-v3.json
+# Search for workflows via Claude Code
+"Find me an n8n workflow for Gmail → Airtable lead capture"
+"Find Shopify → Slack order notification workflow"
+"Find n8n workflow for LinkedIn lead scraping → CRM"
 
-# Import all workflows in a directory
-for f in ./email/gmail/*.json; do
-  n8n import:workflow --input="$f"
-done
+# Search the manifest directly
+grep -i "gmail" ~/installed-repos/n8nworkflows.xyz/workflow_index.txt | head -20
+grep -i "shopify" ~/installed-repos/n8nworkflows.xyz/workflow_index.txt | head -20
+
+# Import a workflow into n8n
+# 1. Browse WORKFLOW-MANIFEST.md to find the workflow name
+# 2. Find the JSON in ~/installed-repos/n8nworkflows.xyz/workflows/<name>/
+# 3. Import via n8n UI: Settings → Import from File
 ```
 
-### Method 3: API Import
+---
+
+## Categories
+
+| Category | Count | Top platforms |
+|---|---|---|
+| **Gmail / Email** | 874 | Gmail, Mailchimp, SendGrid, Outlook, IMAP |
+| **Slack** | 328 | Slack, Slack bots, Slack notifications |
+| **CRM / Sales** | 298 | HubSpot, Salesforce, Apollo, Pipedrive, Close |
+| **Telegram** | 309 | Telegram bots, Telegram notifications, Telegraf |
+| **AI / GPT / LLM** | 421 | OpenAI, Claude, Gemini, LangChain, Pinecone, RAG |
+| **Google Sheets** | 318 | Sheets sync, Sheets → CRM, Sheets reporting |
+| **Social Media** | 197 | Instagram, Twitter/X, Facebook, TikTok, YouTube |
+| **Ecommerce** | 82 | Shopify, WooCommerce, Stripe, PayPal |
+| **LinkedIn** | 156 | LinkedIn scraping, lead gen, outreach automation |
+| **Airtable** | 203 | Airtable sync, Airtable CRM, Airtable reporting |
+| **Data / Reporting** | 287 | Google Analytics, Looker, BigQuery, data pipelines |
+| **SEO / Content** | 144 | WordPress auto-post, SEO monitoring, content pipelines |
+| **Security / Compliance** | 67 | Audit logs, access monitoring, compliance alerts |
+| **Other** | 3,575 | Notion, Jira, GitHub, Zapier migration, Webhooks, etc. |
+
+---
+
+## Use Cases
+
+| Goal | Example prompt | Workflow found |
+|---|---|---|
+| **Lead capture to CRM** | "Gmail → HubSpot contact create when email received from new domain" | `gmail-hubspot-lead-capture` |
+| **Shopify order alerts** | "Shopify new order → Slack #sales channel notification with order value" | `shopify-slack-order-notification` |
+| **LinkedIn lead scraping** | "LinkedIn search → extract profiles → add to Apollo → export CSV" | `linkedin-apollo-lead-pipeline` |
+| **AI customer support** | "Intercom ticket → GPT-4 → classify + auto-reply → escalate to human if complex" | `intercom-gpt4-support-bot` |
+| **Content auto-publishing** | "Google Sheets blog calendar → WordPress auto-publish on schedule" | `sheets-wordpress-auto-publish` |
+| **Sales pipeline sync** | "Stripe payment → HubSpot deal close → Slack team notification → invoice email" | `stripe-hubspot-slack-invoice` |
+| **Competitor monitoring** | "Daily: scrape competitor site → compare with yesterday → Slack diff alert" | `competitor-monitor-slack-alert` |
+| **Invoice processing** | "Gmail attachment → extract invoice data via AI → add to Airtable → send approval" | `gmail-ai-invoice-airtable` |
+
+---
+
+## Installation
+
+### Option 1: Clone the full library (recommended)
 
 ```bash
-curl -X POST http://localhost:5678/api/v1/workflows \
-  -H "X-N8N-API-KEY: your_key" \
-  -H "Content-Type: application/json" \
-  -d @workflow.json
+git clone https://github.com/hmzainjamil/hmz-n8n-workflows.git
+# Browse WORKFLOW-MANIFEST.md to find workflows
+# Import JSON files directly into n8n
 ```
 
----
-
-## n8n Setup for HMZ Stack
-
-### Installation
+### Option 2: Use via Claude Code
 
 ```bash
-# Docker (recommended)
-docker run -d \
-  --name n8n \
-  -p 5678:5678 \
-  -v ~/.n8n:/home/node/.n8n \
-  n8nio/n8n
-
-# npm
-npm install n8n -g
-n8n start
+# Ask Claude to find and adapt any workflow:
+"Find an n8n workflow for [your use case] and adapt it for [your specific setup]"
+# Claude searches WORKFLOW-MANIFEST.md and returns the adapted JSON
 ```
 
-### Required Credentials
+### Option 3: Run n8n locally
 
-Configure these in n8n Settings > Credentials:
-
-| Service | Credential Type |
-|---------|----------------|
-| Gmail | OAuth2 |
-| Google Ads | OAuth2 |
-| Meta/Facebook | OAuth2 |
-| Airtable | API Key |
-| Slack | OAuth2 |
-| OpenAI | API Key |
-| Anthropic | API Key |
-| Google Gemini | API Key |
-| HubSpot | API Key / OAuth2 |
-| LinkedIn | OAuth2 |
-
-### Always-On Setup (LaunchAgent)
-
-```xml
-<!-- ~/Library/LaunchAgents/com.hmz.n8n.plist -->
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "...">
-<plist version="1.0">
-<dict>
-  <key>Label</key><string>com.hmz.n8n</string>
-  <key>ProgramArguments</key>
-  <array><string>n8n</string><string>start</string></array>
-  <key>KeepAlive</key><true/>
-  <key>RunAtLoad</key><true/>
-</dict>
-</plist>
+```bash
+# n8n runs as a LaunchAgent in HMZ system
+launchctl load ~/Library/LaunchAgents/ai.hmz.n8n.plist
+# Access at http://localhost:5678
 ```
 
 ---
 
-## Top 20 Most-Used Workflows in HMZ
+## Prerequisites
 
-| # | Workflow | Daily Runs |
-|---|---------|-----------|
-| 1 | weekly-client-report-compiler | 7 (weekly) |
-| 2 | linkedin-job-monitor | 3x daily |
-| 3 | gmail-cold-outreach-v5 | 2x daily |
-| 4 | google-ads-alerts | 4x daily |
-| 5 | meta-ads-spend-monitor | 4x daily |
-| 6 | airtable-lead-sync | Continuous |
-| 7 | ai-email-draft | On trigger |
-| 8 | slack-daily-digest | 1x daily |
-| 9 | ga4-traffic-alert | 4x daily |
-| 10 | content-repurposer | 2x daily |
+1. **n8n instance** — self-hosted (`npx n8n`) or n8n.cloud
+2. **n8n credentials** — configure your platform credentials in n8n Settings → Credentials
+3. **Node.js 18+** — required for self-hosted n8n
+4. **Relevant API keys** — each workflow requires credentials for its platforms (see workflow README)
 
 ---
+
+## Resources
+
+- **[n8n.io](https://n8n.io)** — n8n documentation and community
+- **[n8nworkflows.xyz](https://n8nworkflows.xyz)** — source community for this workflow collection
+- **[claude-ai-system](https://github.com/hmzainjamil/claude-ai-system)** — full HMZ system (these workflows are part of it)
+- **[claude-ai-workflows](https://github.com/hmzainjamil/claude-ai-workflows)** — meta-workflows and pipeline documentation
+- **[hmz-composio](https://github.com/hmzainjamil/hmz-composio)** — Composio MCP for 250+ app integrations
+
+---
+
+## Support
+
+- [Open an issue](https://github.com/hmzainjamil/hmz-n8n-workflows/issues)
+- [LinkedIn](https://linkedin.com/in/hmzainjamil)
 
 ## License
 
-Workflows are community-sourced from n8n's template library and custom-built for HMZ operations. Free to use under community sharing principles.
+MIT
 
 ---
 
-*8,159 workflows. Every business function automated. Built for a one-person agency that operates like a team of 50.*
+<p align="center">
+  Built by <a href="https://github.com/hmzainjamil">Hafiz Muhammad Zulqarnain</a> &mdash; HMZ AI Agency
+</p>
+
+<p align="center">
+  <sub>8,159 workflows. All searchable via Claude Code. Ask: "Find me an n8n workflow for [use case]"</sub>
+</p>
