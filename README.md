@@ -1,113 +1,114 @@
 # hmz-n8n-workflows
-8,159 n8n workflow templates + custom DigiMinds automation workflows — visual pipeline builder for integrating APIs, webhooks, and AI models without code.
+Production n8n workflow library — AI automation, lead gen, content, and agency operations.
 
-![workflows](https://img.shields.io/badge/templates-8159-blue?style=flat&labelColor=555) ![custom](https://img.shields.io/badge/custom_workflows-15%2B-green?style=flat&labelColor=555) ![integrations](https://img.shields.io/badge/integrations-400%2B-orange?style=flat&labelColor=555) ![company](https://img.shields.io/badge/DigiMinds-agency-red?style=flat&labelColor=555)
+![workflows](https://img.shields.io/badge/workflows-30%2B-blue?style=flat&labelColor=555)
+![platform](https://img.shields.io/badge/platform-n8n-orange?style=flat&labelColor=555)
+![tier0](https://img.shields.io/badge/models-Tier0_first-green?style=flat&labelColor=555)
+![status](https://img.shields.io/badge/status-production-brightgreen?style=flat&labelColor=555)
+![license](https://img.shields.io/badge/license-MIT-blue?style=flat&labelColor=555)
 
-[Concepts](#-concepts) · [Hot](#-hot) · [Inventory](#️-workflow-inventory) · [Tips](#-tips-and-tricks-20) · [Replaced](#️-startups--businesses) · [Stars](#star-history)
-
----
+[Concepts](#-concepts) · [Architecture](#️-architecture) · [Tips](#-tips-and-tricks-20) · [Kills](#️-startups--businesses) · [Stars](#star-history)
 
 ## 🧠 CONCEPTS
 
 | Feature | Location | Description |
 |---------|----------|-------------|
-| [**8,159 Templates**](~/installed-repos/n8nworkflows.xyz/workflows/) | `~/installed-repos/n8nworkflows.xyz/` | Full community template library — searchable locally, import directly to n8n instance |
-| [**Custom Workflows**](workflows/) | `workflows/` | DigiMinds-specific: lead routing, content publishing, KPI alerts, client reporting, audit delivery |
-| [**AI Node**](workflows/ai-nodes/) | `workflows/ai-nodes/` | Connects to Ollama, Groq, Gemini, OpenAI directly inside n8n — no code needed |
-| [**Webhook Triggers**](workflows/webhooks/) | `workflows/webhooks/` | Paperclip API events → n8n webhook → multi-step automation |
-| [**Composio Integration**](workflows/composio/) | `workflows/composio/` | n8n calls Composio HTTP nodes for 200+ tool connections |
-| [**Credential Store**](https://n8n.io/docs/credentials/) | n8n UI | OAuth tokens for all services stored in n8n credential vault — never in workflow JSON |
+| [**BDM Lead Sweep**](workflows/bdm-lead-sweep.json) | `workflows/bdm-lead-sweep.json` | Morning LinkedIn scrape → score → personalized outreach via GPT-4o-mini [![daily](https://img.shields.io/badge/schedule-08%3A00-blue?style=flat&labelColor=555)] |
+| [**Reddit Poster**](workflows/reddit-poster.json) | `workflows/reddit-poster.json` | 1 post/day max (bot-watch compliance) — value-first, no agency links in body |
+| [**Competitor Intel**](workflows/competitor-intel.json) | `workflows/competitor-intel.json` | Weekly scrape → pricing delta → Slack alert if competitor changes rates |
+| [**LinkedIn Content**](workflows/linkedin-content.json) | `workflows/linkedin-content.json` | Sunday batch-generate week of posts — Gemini draft → human approval step |
+| [**Audit PDF Trigger**](workflows/audit-pdf.json) | `workflows/audit-pdf.json` | Webhook → extract prospect URL → brand palette → ReportLab 11-page PDF |
+| [**Email Sequence**](workflows/email-sequence.json) | `workflows/email-sequence.json` | Cold → follow-up → close — 5-email chain, Instantly/Smartlead compatible |
+| [**KPI Alert**](workflows/kpi-alert.json) | `workflows/kpi-alert.json` | Hourly ROAS/CPL check → Slack DM if metric drops >15% |
+| [**Skill Sync**](workflows/skill-sync.json) | `workflows/skill-sync.json` | GitHub webhook → pulls new SKILL.md → activates in Claude Code via API |
+| [**Session Queue**](workflows/session-queue.json) | `workflows/session-queue.json` | Reads session-queue.jsonl → writes to persistent memory files |
 
 ### 🔥 Hot
 
 | Feature | Location | Description |
 |---------|----------|-------------|
-| [**n8n AI Agent node**](workflows/ai-nodes/) | `workflows/ai-nodes/` | Native agent loop inside n8n — chain tool calls without code |
-| [**Sub-workflow pattern**](workflows/) | `workflows/` | Complex workflows split into reusable sub-workflows — called like functions |
-| [**Error workflow**](workflows/error-handler.json) | `workflows/error-handler.json` | Global error handler catches all failures — logs to Paperclip API + Slack alert |
+| [**Paperclip Webhook**](workflows/paperclip-webhook.json) | `workflows/paperclip-webhook.json` | Receives CEO loop decisions → dispatches to correct n8n sub-workflow |
+| [**Per-Prospect PDF**](workflows/per-prospect-pdf.json) | `workflows/per-prospect-pdf.json` | Each cold email gets unique PDF — business name, city, brand palette from URL |
+| [**GitHub Portfolio Sync**](workflows/github-sync.json) | `workflows/github-sync.json` | 06:30 daily — mirrors local ~/.claude/bin to GitHub repos via Contents API |
 
----
+## ⚙️ ARCHITECTURE
 
-## ⚙️ WORKFLOW INVENTORY
+```
+n8n Workflow Categories:
 
-| Workflow | Trigger | Integrations | Output |
-|----------|---------|--------------|--------|
-| Lead Qualification Router | Webhook (Paperclip) | Apollo + HubSpot + Slack | Lead in CRM + Slack alert |
-| LinkedIn Content Publisher | Daily 10 AM | LinkedIn API + Gemini | Scheduled post |
-| Client Audit Delivery | Manual trigger | Gmail + Google Drive + Stripe | Audit PDF emailed + invoiced |
-| KPI Alert Router | Webhook (KPI monitor) | Slack + Gmail + Paperclip | Alert to HMZ |
-| Cold Email Sequence | Apollo webhook | Apollo + Mailgun + HubSpot | 5-step email sequence |
-| Competitor Intel Digest | Mon/Wed/Fri | Apify + Slack + Paperclip | Intel brief in Slack |
-| Onboarding Automation | New client in HubSpot | Notion + Slack + Gmail | Welcome kit + workspace |
-| Invoice Automation | Project complete | Stripe + QuickBooks + Gmail | Auto-invoice sent |
-| Google Ads Alert | GA4 threshold breach | Google Ads API + Slack | ROAS drop alert |
-| Meta Ads Alert | Meta webhook | Meta API + Slack + Paperclip | CPM spike alert |
+  BDM / Lead Gen
+    ├─ bdm-lead-sweep (daily 08:00)
+    ├─ email-sequence (triggered on new lead)
+    └─ per-prospect-pdf (webhook)
 
----
+  Content
+    ├─ linkedin-content (Sunday batch)
+    ├─ reddit-poster (daily, 1 max)
+    └─ audit-pdf (on-demand webhook)
+
+  Intel
+    ├─ competitor-intel (weekly)
+    └─ kpi-alert (hourly)
+
+  Infrastructure
+    ├─ skill-sync (GitHub webhook)
+    ├─ session-queue (Stop hook)
+    └─ github-sync (daily 06:30)
+```
 
 ## 💡 TIPS AND TRICKS (20)
 
-[Design](#tips-design) · [AI nodes](#tips-ai) · [Triggers](#tips-trig) · [Error](#tips-err) · [Templates](#tips-tmpl)
+[n8n](#tips-n8n) · [ai-nodes](#tips-ai-nodes) · [webhooks](#tips-webhooks) · [scheduling](#tips-scheduling)
 
-<a id="tips-design"></a>■ **Workflow Design (6)**
-
-| Tip | Source |
-|-----|--------|
-| Every workflow must have an error trigger — connect to global error handler | [n8n best practice](https://n8n.io/docs) |
-| Split complex workflows into sub-workflows — max 20 nodes per flow | [Maintainability rule](workflows/) |
-| Use Set node to normalize data between integrations — schema drift kills workflows | [Data hygiene](workflows/) |
-| Always test with real data, not dummy data — n8n test mode hides integration issues | [Testing rule](workflows/) |
-| Use `$workflow.id` + timestamp as idempotency key for external API calls | [Design pattern](workflows/) |
-| Retry on failure: set node retry count to 3 with exponential backoff | [Reliability](https://n8n.io/docs) |
-
-<a id="tips-ai"></a>■ **AI Nodes (4)**
+<a id="tips-n8n"></a>■ **n8n Fundamentals (5)**
 
 | Tip | Source |
 |-----|--------|
-| Point n8n AI node to Ollama (`http://localhost:11434/v1`) for free local inference | [Tier 0](../hmz-ollama/) |
-| Use Groq credential in n8n for fastest cloud inference in time-sensitive workflows | [Groq](../hmz-g0dm0d3/) |
-| AI Agent node in n8n chains tool calls — use for multi-step research workflows | [n8n docs](https://n8n.io/docs) |
-| Gemini Flash = best n8n AI node default — 1,500 free/day, strong quality | [Cost rule](../hmz-g0dm0d3/) |
+| Self-host n8n locally — no monthly cost, full control, runs via LaunchAgent | [n8n](https://n8n.io/self-hosted) |
+| Export workflows as JSON — version control in this repo, restore on crash | [HMZ](https://github.com/hmzainjamil) |
+| Use `Error Workflow` node — catches failures and logs to Slack channel | [HMZ](https://github.com/hmzainjamil) |
+| n8n credentials: store API keys once in Settings → Credentials, reuse everywhere | [n8n Docs](https://docs.n8n.io/credentials) |
+| `n8n start --tunnel` for webhook testing — exposes local n8n to internet temporarily | [n8n Docs](https://docs.n8n.io/hosting/configuration/configuration-examples/webhook-url) |
 
-<a id="tips-trig"></a>■ **Triggers (4)**
-
-| Tip | Source |
-|-----|--------|
-| Webhook triggers from Paperclip API → n8n are more reliable than cron triggers | [Architecture](../hmz-digiminds-ceo/) |
-| Use `Schedule Trigger` not cron for n8n — survives n8n restarts, cron doesn't | [n8n docs](https://n8n.io/docs) |
-| Deduplicate webhook events with a cache node — Paperclip may send duplicate events | [Reliability](workflows/) |
-| Test webhooks locally with ngrok or n8n's built-in webhook test URL | [Dev workflow](https://n8n.io/docs) |
-
-<a id="tips-err"></a>■ **Error Handling (3)**
+<a id="tips-ai-nodes"></a>■ **AI Nodes (5)**
 
 | Tip | Source |
 |-----|--------|
-| Global error workflow: connect all workflows' "On Error" to one handler | [n8n pattern](workflows/error-handler.json) |
-| Error handler logs to Paperclip API + sends Slack alert — both, always | [Ops rule](workflows/) |
-| Never use `Continue on Error` without logging — silent failures are invisible | [Debug rule](workflows/) |
+| Route n8n AI nodes to Groq/Gemini — never OpenAI for cost-sensitive workflows | [HMZ](https://github.com/hmzainjamil) |
+| OpenRouter node: set model dynamically — switch to cheapest model per task type | [HMZ](https://github.com/hmzainjamil) |
+| Use `Code` node for caveman compression — strip output before passing to next node | [HMZ](https://github.com/hmzainjamil) |
+| Batch AI calls in a single node with array input — reduces API round-trips 5x | [HMZ](https://github.com/hmzainjamil) |
+| Cache AI responses in n8n Variables — avoid re-calling for same input within session | [HMZ](https://github.com/hmzainjamil) |
 
-<a id="tips-tmpl"></a>■ **Templates (3)**
+<a id="tips-webhooks"></a>■ **Webhooks (5)**
 
 | Tip | Source |
 |-----|--------|
-| `find ~/installed-repos/n8nworkflows.xyz -name "*.json" \| xargs grep "slack"` to find templates | [Local search](~/installed-repos/n8nworkflows.xyz/) |
-| Import template: n8n UI → Workflows → Import from file | [n8n UI](https://n8n.io) |
-| Community templates at [n8n.io/workflows](https://n8n.io/workflows) — 8K+ and growing | [Community](https://n8n.io) |
+| Use `Respond to Webhook` node immediately — don't block webhook caller during processing | [n8n Docs](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook) |
+| Validate webhook auth header — add `Header Auth` to all production webhooks | [HMZ](https://github.com/hmzainjamil) |
+| GitHub webhook → n8n → skill-sync: fires on push to claude-ai-skills repo | [HMZ](https://github.com/hmzainjamil) |
+| Store webhook URLs in n8n Variables — easy to update without editing each workflow | [HMZ](https://github.com/hmzainjamil) |
+| Test webhooks with `n8n execute --id <workflow-id>` before enabling in production | [HMZ](https://github.com/hmzainjamil) |
 
----
+<a id="tips-scheduling"></a>■ **Scheduling (5)**
+
+| Tip | Source |
+|-----|--------|
+| Stagger heavy workflows by 10+ minutes — avoid simultaneous API bursts | [HMZ](https://github.com/hmzainjamil) |
+| Reddit: 1 post/day max — bot-watch account, never schedule 2-3/day | [HMZ](https://github.com/hmzainjamil) |
+| LinkedIn content: batch Sunday, approve Monday — human review step before publish | [HMZ](https://github.com/hmzainjamil) |
+| KPI check: hourly during business hours (08:00-22:00), skip overnight | [HMZ](https://github.com/hmzainjamil) |
+| BDM sweep: 08:00 only — respects LinkedIn rate limits and business hours | [HMZ](https://github.com/hmzainjamil) |
 
 ## ☠️ STARTUPS / BUSINESSES
 
 | Feature | Replaced |
 |-|-|
-| **Visual workflow builder** | [Zapier](https://zapier.com), [Make](https://make.com) — expensive per-task pricing, vendor lock-in |
-| **AI nodes (local + cloud)** | Separate AI integrations in each automation platform |
-| **8,159 template library** | Starting from scratch for every new workflow |
-| **Self-hosted n8n** | [Zapier](https://zapier.com) $19-99/mo · [Make](https://make.com) $9-29/mo per workspace |
-| **Webhook triggers** | Polling cron jobs — delayed reactions, unnecessary API calls |
-| **Sub-workflow pattern** | Duplicating logic across multiple workflows |
-
----
+| **BDM Lead Sweep** | [Apollo.io](https://apollo.io), [Hunter.io](https://hunter.io), [ZoomInfo](https://zoominfo.com) |
+| **Email Sequences** | [Instantly](https://instantly.ai), [Lemlist](https://lemlist.com), [Smartlead](https://smartlead.ai) |
+| **LinkedIn Content** | [Buffer](https://buffer.com), [Hootsuite](https://hootsuite.com), [Taplio](https://taplio.com) |
+| **Competitor Intel** | [Similarweb](https://similarweb.com), [SEMrush](https://semrush.com), [Ahrefs](https://ahrefs.com) |
+| **KPI Monitoring** | [Databox](https://databox.com), [Klipfolio](https://klipfolio.com), [AgencyAnalytics](https://agencyanalytics.com) |
 
 ## Star History
 
