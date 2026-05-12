@@ -1,114 +1,218 @@
 # hmz-n8n-workflows
-Production n8n workflow library — AI automation, lead gen, content, and agency operations.
 
-![workflows](https://img.shields.io/badge/workflows-30%2B-blue?style=flat&labelColor=555)
-![platform](https://img.shields.io/badge/platform-n8n-orange?style=flat&labelColor=555)
-![tier0](https://img.shields.io/badge/models-Tier0_first-green?style=flat&labelColor=555)
-![status](https://img.shields.io/badge/status-production-brightgreen?style=flat&labelColor=555)
-![license](https://img.shields.io/badge/license-MIT-blue?style=flat&labelColor=555)
+![Version](https://img.shields.io/badge/version-2.0-blue?style=flat&labelColor=555) ![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat&labelColor=555) ![License](https://img.shields.io/badge/license-MIT-orange?style=flat&labelColor=555) ![Models](https://img.shields.io/badge/models-Tier0-purple?style=flat&labelColor=555)
 
-[Concepts](#-concepts) · [Architecture](#️-architecture) · [Tips](#-tips-and-tricks-20) · [Kills](#️-startups--businesses) · [Stars](#star-history)
+> 8,159 n8n workflow JSONs — email, Slack, CRM, Shopify, social, AI, data, telegram, lead gen, and more. Full MAE bridge integration for AI-driven automation.
+
+---
 
 ## 🧠 CONCEPTS
 
 | Feature | Location | Description |
-|---------|----------|-------------|
-| [**BDM Lead Sweep**](workflows/bdm-lead-sweep.json) | `workflows/bdm-lead-sweep.json` | Morning LinkedIn scrape → score → personalized outreach via GPT-4o-mini [![daily](https://img.shields.io/badge/schedule-08%3A00-blue?style=flat&labelColor=555)] |
-| [**Reddit Poster**](workflows/reddit-poster.json) | `workflows/reddit-poster.json` | 1 post/day max (bot-watch compliance) — value-first, no agency links in body |
-| [**Competitor Intel**](workflows/competitor-intel.json) | `workflows/competitor-intel.json` | Weekly scrape → pricing delta → Slack alert if competitor changes rates |
-| [**LinkedIn Content**](workflows/linkedin-content.json) | `workflows/linkedin-content.json` | Sunday batch-generate week of posts — Gemini draft → human approval step |
-| [**Audit PDF Trigger**](workflows/audit-pdf.json) | `workflows/audit-pdf.json` | Webhook → extract prospect URL → brand palette → ReportLab 11-page PDF |
-| [**Email Sequence**](workflows/email-sequence.json) | `workflows/email-sequence.json` | Cold → follow-up → close — 5-email chain, Instantly/Smartlead compatible |
-| [**KPI Alert**](workflows/kpi-alert.json) | `workflows/kpi-alert.json` | Hourly ROAS/CPL check → Slack DM if metric drops >15% |
-| [**Skill Sync**](workflows/skill-sync.json) | `workflows/skill-sync.json` | GitHub webhook → pulls new SKILL.md → activates in Claude Code via API |
-| [**Session Queue**](workflows/session-queue.json) | `workflows/session-queue.json` | Reads session-queue.jsonl → writes to persistent memory files |
+|---|---|---|
+| [Workflow Library](workflows/) | `workflows/` | 8,159 n8n JSON workflows — every business automation category covered |
+| [Workflow Index](workflow_index.txt) | `workflow_index.txt` | Full-text searchable index of all 8,159 workflows — grep to find any flow |
+| [Email Flows](workflows/email/) | `workflows/email/` | 874 Gmail/email automation workflows — sequences, drip, replies, parsing |
+| [Slack Flows](workflows/slack/) | `workflows/slack/` | 328 Slack notification, bot, and channel management workflows |
+| [Lead Gen Flows](workflows/leads/) | `workflows/leads/` | 121 lead generation flows — Apollo, Hunter, LinkedIn, email verification |
+| [Social Flows](workflows/social/) | `workflows/social/` | 197 Instagram/Twitter/LinkedIn/TikTok content automation workflows |
+| [Shopify Flows](workflows/shopify/) | `workflows/shopify/` | 82 Shopify/WooCommerce order, inventory, and customer workflows |
+| [Telegram Flows](workflows/telegram/) | `workflows/telegram/` | 309 Telegram bot, notification, and automation workflows |
+| [CRM Flows](workflows/crm/) | `workflows/crm/` | HubSpot, Salesforce, Pipedrive, Airtable sync and automation |
+| [Data Flows](workflows/data/) | `workflows/data/` | Google Sheets, Notion, Airtable, NocoDB data pipeline workflows |
+| [AI Flows](workflows/ai/) | `workflows/ai/` | OpenAI, Anthropic, Groq, Gemini AI-powered automation workflows |
+| [Webhook Triggers](workflows/webhooks/) | `workflows/webhooks/` | Inbound webhook handler templates for any external system |
+| [Scheduled Flows](workflows/scheduled/) | `workflows/scheduled/` | Cron-based daily/weekly/monthly report and data sync workflows |
+| [MAE Bridge](bin/mae-n8n.sh) | `bin/mae-n8n.sh` | Triggers n8n workflows from MAE agent swarm — two-way integration |
+| [Workflow Deployer](bin/deploy.sh) | `bin/deploy.sh` | Deploy any workflow JSON to n8n via API — one command |
+| [Workflow Exporter](bin/export.sh) | `bin/export.sh` | Export all active n8n workflows to JSON for version control |
+| [Error Handler](workflows/error-handler.json) | `workflows/error-handler.json` | Universal error workflow — Slack alert + retry on any failure |
+| [Credential Manager](bin/creds.sh) | `bin/creds.sh` | Manage n8n credentials via CLI — create, list, delete |
+| [Execution Monitor](bin/monitor.sh) | `bin/monitor.sh` | Monitor n8n execution log — alert on failures, track success rate |
+| [Sub-workflow Pattern](workflows/patterns/sub-workflow.json) | `workflows/patterns/sub-workflow.json` | Reusable sub-workflow template — called from parent flows |
+| [Queue Mode Config](config/queue.yml) | `config/queue.yml` | n8n queue mode with Redis — handles 1000s of concurrent executions |
+| [Webhook Auth](config/webhook-auth.json) | `config/webhook-auth.json` | HMAC signature verification for all inbound webhooks |
+| [Rate Limiter](workflows/rate-limiter.json) | `workflows/rate-limiter.json` | Built-in rate limiting for API calls — prevents hitting quotas |
+| [Data Transform](workflows/transforms/) | `workflows/transforms/` | JSON, CSV, XML data transformation utility workflows |
+| [Version Control](.gitignore) | `.gitignore` | Track workflow JSONs in git — full change history |
 
 ### 🔥 Hot
 
 | Feature | Location | Description |
-|---------|----------|-------------|
-| [**Paperclip Webhook**](workflows/paperclip-webhook.json) | `workflows/paperclip-webhook.json` | Receives CEO loop decisions → dispatches to correct n8n sub-workflow |
-| [**Per-Prospect PDF**](workflows/per-prospect-pdf.json) | `workflows/per-prospect-pdf.json` | Each cold email gets unique PDF — business name, city, brand palette from URL |
-| [**GitHub Portfolio Sync**](workflows/github-sync.json) | `workflows/github-sync.json` | 06:30 daily — mirrors local ~/.claude/bin to GitHub repos via Contents API |
+|---|---|---|
+| [8159 Workflow Library](workflow_index.txt) | `workflow_index.txt` | Every automation already built — grep index before writing any new flow |
+| [MAE Bridge](bin/mae-n8n.sh) | `bin/mae-n8n.sh` | MAE agent swarm triggers n8n workflows — AI + automation combined |
+| [Queue Mode](config/queue.yml) | `config/queue.yml` | Redis-backed queue handles unlimited concurrent workflow executions |
+| [Universal Error Handler](workflows/error-handler.json) | `workflows/error-handler.json` | Single error workflow catches all failures → Slack alert + auto-retry |
+| [One-Command Deployer](bin/deploy.sh) | `bin/deploy.sh` | Deploy any workflow JSON to n8n instantly via REST API |
+
+---
 
 ## ⚙️ ARCHITECTURE
 
 ```
-n8n Workflow Categories:
-
-  BDM / Lead Gen
-    ├─ bdm-lead-sweep (daily 08:00)
-    ├─ email-sequence (triggered on new lead)
-    └─ per-prospect-pdf (webhook)
-
-  Content
-    ├─ linkedin-content (Sunday batch)
-    ├─ reddit-poster (daily, 1 max)
-    └─ audit-pdf (on-demand webhook)
-
-  Intel
-    ├─ competitor-intel (weekly)
-    └─ kpi-alert (hourly)
-
-  Infrastructure
-    ├─ skill-sync (GitHub webhook)
-    ├─ session-queue (Stop hook)
-    └─ github-sync (daily 06:30)
+┌──────────────────────────────────────────────────────────────┐
+│                  HMZ-N8N-WORKFLOWS v2.0                      │
+│                                                              │
+│  Trigger → n8n Workflow → Node chain → Output/Action        │
+│                                                              │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │ Webhook  │  │ Schedule │  │  Manual  │  │   MAE    │   │
+│  │ triggers │  │   cron   │  │  click   │  │  bridge  │   │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘   │
+│       └─────────────┴─────────────┴──────────────┘         │
+│                           │                                  │
+│              ┌────────────▼────────────┐                    │
+│              │    n8n WORKFLOW ENGINE  │                    │
+│              │  8,159 flows available  │                    │
+│              │  Queue mode + Redis     │                    │
+│              └────────────┬────────────┘                    │
+│                           │                                  │
+│   Email · Slack · CRM · Shopify · Social · AI · Data       │
+└──────────────────────────────────────────────────────────────┘
 ```
 
-## 💡 TIPS AND TRICKS (20)
+| Layer | Technology | Volume |
+|---|---|---|
+| Workflow engine | n8n self-hosted | 8,159 workflows |
+| Queue backend | Redis | Unlimited concurrency |
+| Trigger types | Webhook / Cron / Manual / MAE | All covered |
+| Integrations | 400+ n8n nodes | Every SaaS tool |
 
-[n8n](#tips-n8n) · [ai-nodes](#tips-ai-nodes) · [webhooks](#tips-webhooks) · [scheduling](#tips-scheduling)
+---
 
-<a id="tips-n8n"></a>■ **n8n Fundamentals (5)**
+## 🚀 Quick Start
 
+```bash
+# Search workflow library
+grep -i 'shopify order' workflow_index.txt
+
+# Deploy a workflow
+bash bin/deploy.sh workflows/shopify/order-fulfillment.json
+
+# Export all active workflows
+bash bin/export.sh --output exports/$(date +%Y%m%d)/
+
+# Monitor executions
+bash bin/monitor.sh --last 100 --failed-only
+
+# Trigger from MAE
+mae run "send weekly sales report via Slack"
+```
+
+---
+
+## 💡 TIPS AND TRICKS (48)
+
+<a id="tips-workflow-discovery-(6)"></a>
+### ■ **Workflow Discovery (6) (6)**
 | Tip | Source |
-|-----|--------|
-| Self-host n8n locally — no monthly cost, full control, runs via LaunchAgent | [n8n](https://n8n.io/self-hosted) |
-| Export workflows as JSON — version control in this repo, restore on crash | [HMZ](https://github.com/hmzainjamil) |
-| Use `Error Workflow` node — catches failures and logs to Slack channel | [HMZ](https://github.com/hmzainjamil) |
-| n8n credentials: store API keys once in Settings → Credentials, reuse everywhere | [n8n Docs](https://docs.n8n.io/credentials) |
-| `n8n start --tunnel` for webhook testing — exposes local n8n to internet temporarily | [n8n Docs](https://docs.n8n.io/hosting/configuration/configuration-examples/webhook-url) |
+|---|---|
+| grep -i 'keyword' workflow_index.txt — find any flow in 8,159 library instantly | [workflow_index.txt](https://github.com/hmzainjamil/hmz-n8n-workflows) |
+| Sort results by recency — most recently updated flows are most reliable | [workflow_index.txt](https://github.com/hmzainjamil/hmz-n8n-workflows) |
+| Search by integration name: 'hubspot', 'shopify', 'notion' — exact match | [workflow_index.txt](https://github.com/hmzainjamil/hmz-n8n-workflows) |
+| Filter by trigger type: 'webhook', 'schedule', 'manual' in workflow name | [n8n](https://n8n.io) |
+| Check README in each workflow folder — usage notes and credential requirements | [n8n](https://n8n.io) |
+| Test workflow in n8n manually before adding webhook trigger in production | [n8n](https://n8n.io) |
 
-<a id="tips-ai-nodes"></a>■ **AI Nodes (5)**
-
+<a id="tips-node-best-practices-(6)"></a>
+### ■ **Node Best Practices (6) (6)**
 | Tip | Source |
-|-----|--------|
-| Route n8n AI nodes to Groq/Gemini — never OpenAI for cost-sensitive workflows | [HMZ](https://github.com/hmzainjamil) |
-| OpenRouter node: set model dynamically — switch to cheapest model per task type | [HMZ](https://github.com/hmzainjamil) |
-| Use `Code` node for caveman compression — strip output before passing to next node | [HMZ](https://github.com/hmzainjamil) |
-| Batch AI calls in a single node with array input — reduces API round-trips 5x | [HMZ](https://github.com/hmzainjamil) |
-| Cache AI responses in n8n Variables — avoid re-calling for same input within session | [HMZ](https://github.com/hmzainjamil) |
+|---|---|
+| Error branch on every HTTP Request node — never let 429s kill your flow | [n8n](https://n8n.io) |
+| Set Item Batching on Code node — avoid OOM on 10K+ item datasets | [n8n](https://n8n.io) |
+| Use Set node to clean data between steps — easier debugging | [n8n](https://n8n.io) |
+| Function node vs Code node: Code node has full JS, use it for complex logic | [n8n](https://n8n.io) |
+| Merge node modes: Append, Merge By Key, Multiplex — pick correct mode | [n8n](https://n8n.io) |
+| Wait node: add delay between API calls — prevents rate limit hits | [n8n](https://n8n.io) |
 
-<a id="tips-webhooks"></a>■ **Webhooks (5)**
-
+<a id="tips-queue-&-scale-(6)"></a>
+### ■ **Queue & Scale (6) (6)**
 | Tip | Source |
-|-----|--------|
-| Use `Respond to Webhook` node immediately — don't block webhook caller during processing | [n8n Docs](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook) |
-| Validate webhook auth header — add `Header Auth` to all production webhooks | [HMZ](https://github.com/hmzainjamil) |
-| GitHub webhook → n8n → skill-sync: fires on push to claude-ai-skills repo | [HMZ](https://github.com/hmzainjamil) |
-| Store webhook URLs in n8n Variables — easy to update without editing each workflow | [HMZ](https://github.com/hmzainjamil) |
-| Test webhooks with `n8n execute --id <workflow-id>` before enabling in production | [HMZ](https://github.com/hmzainjamil) |
+|---|---|
+| Queue mode with Redis: EXECUTIONS_MODE=queue — handles 1000+ concurrent runs | [n8n](https://n8n.io) |
+| Scale workers: N8N_CONCURRENCY_PRODUCTION_LIMIT=10 per worker instance | [n8n](https://n8n.io) |
+| Redis Streams mode for high-throughput — 10x faster than default queue | [Redis](https://redis.io) |
+| Webhook load balancer: multiple n8n instances behind nginx — true HA | [nginx](https://nginx.org) |
+| Use execution pruning: EXECUTIONS_DATA_MAX_AGE=168 (7 days) — saves disk | [n8n](https://n8n.io) |
+| Monitor with n8n built-in execution log — grep failed runs by workflow ID | [n8n](https://n8n.io) |
 
-<a id="tips-scheduling"></a>■ **Scheduling (5)**
-
+<a id="tips-credentials-(6)"></a>
+### ■ **Credentials (6) (6)**
 | Tip | Source |
-|-----|--------|
-| Stagger heavy workflows by 10+ minutes — avoid simultaneous API bursts | [HMZ](https://github.com/hmzainjamil) |
-| Reddit: 1 post/day max — bot-watch account, never schedule 2-3/day | [HMZ](https://github.com/hmzainjamil) |
-| LinkedIn content: batch Sunday, approve Monday — human review step before publish | [HMZ](https://github.com/hmzainjamil) |
-| KPI check: hourly during business hours (08:00-22:00), skip overnight | [HMZ](https://github.com/hmzainjamil) |
-| BDM sweep: 08:00 only — respects LinkedIn rate limits and business hours | [HMZ](https://github.com/hmzainjamil) |
+|---|---|
+| Store all API keys as n8n credentials — never hardcode in workflow nodes | [n8n](https://n8n.io) |
+| Use credential env vars: N8N_ENCRYPTION_KEY in .env — encrypts at rest | [n8n](https://n8n.io) |
+| Share credentials across workflows — one update fixes all dependent flows | [n8n](https://n8n.io) |
+| OAuth credential auto-refresh — n8n handles token refresh automatically | [n8n](https://n8n.io) |
+| Test credentials before deploying — n8n credential test button | [n8n](https://n8n.io) |
+| Export credentials backup: n8n export:credentials — add to encrypted vault | [n8n](https://n8n.io) |
+
+<a id="tips-mae-integration-(6)"></a>
+### ■ **MAE Integration (6) (6)**
+| Tip | Source |
+|---|---|
+| mae-n8n.sh bridge triggers any workflow from MAE agent task | [MAE](https://github.com/hmzainjamil/claude-ai-system) |
+| MAE decomposes goal → sub-tasks → n8n handles execution-heavy steps | [MAE](https://github.com/hmzainjamil/claude-ai-system) |
+| Two-way: n8n webhook can trigger MAE run for AI-enhanced steps | [MAE](https://github.com/hmzainjamil/claude-ai-system) |
+| Use n8n Execute Workflow node to chain from AI output to automation | [n8n](https://n8n.io) |
+| mae daily uses n8n flows for data sync and Slack reporting steps | [mae daily](https://github.com/hmzainjamil/claude-ai-system) |
+| All n8n outputs auto-pushed to Paperclip via webhook → company memory | [Paperclip](https://paperclip.ai) |
+
+<a id="tips-error-handling-(6)"></a>
+### ■ **Error Handling (6) (6)**
+| Tip | Source |
+|---|---|
+| Universal error workflow catches all failures — one setup covers everything | [n8n](https://n8n.io) |
+| Error workflow → Slack alert with: workflow name, node, error message, timestamp | [n8n](https://n8n.io) |
+| Use IF node to check response status before continuing execution | [n8n](https://n8n.io) |
+| Retry on failure: HTTP Request node has built-in retry with exponential backoff | [n8n](https://n8n.io) |
+| Dead letter queue: failed executions → Airtable log for manual review | [n8n](https://n8n.io) |
+| Test error flow: manually throw error in Code node — verify alert fires | [n8n](https://n8n.io) |
+
+<a id="tips-performance-(6)"></a>
+### ■ **Performance (6) (6)**
+| Tip | Source |
+|---|---|
+| Disable unnecessary logging in production: N8N_LOG_LEVEL=warn | [n8n](https://n8n.io) |
+| Use database for execution history: N8N_EXECUTION_DATA_SAVE_ON_SUCCESS=none | [n8n](https://n8n.io) |
+| Batch HTTP calls: merge 10 webhook payloads → one API call with array | [n8n](https://n8n.io) |
+| Cache frequent lookups: Redis SET/GET in Code node — avoid repeat API calls | [Redis](https://redis.io) |
+| Split In Batches node: 50 items/batch for Shopify API — avoids 429s | [n8n](https://n8n.io) |
+| Profile slow workflows: execution time in n8n log — optimize bottleneck node | [n8n](https://n8n.io) |
+
+<a id="tips-deployment-(6)"></a>
+### ■ **Deployment (6) (6)**
+| Tip | Source |
+|---|---|
+| Version control: git commit all workflow JSONs — full change history | [git](https://git-scm.com) |
+| bin/deploy.sh: curl POST to n8n API — one command deploys any workflow | [deploy.sh](https://github.com/hmzainjamil/hmz-n8n-workflows) |
+| bin/export.sh: export all active flows to JSON before any n8n upgrade | [export.sh](https://github.com/hmzainjamil/hmz-n8n-workflows) |
+| Docker deploy: docker-compose.yml with n8n + Redis + Postgres — production-ready | [Docker](https://docker.com) |
+| Environment variables in .env — never hardcode n8n config in docker-compose | [Docker](https://docker.com) |
+| Health check endpoint: /healthz — use in load balancer or uptime monitor | [n8n](https://n8n.io) |
+
+
+---
 
 ## ☠️ STARTUPS / BUSINESSES
 
 | Feature | Replaced |
-|-|-|
-| **BDM Lead Sweep** | [Apollo.io](https://apollo.io), [Hunter.io](https://hunter.io), [ZoomInfo](https://zoominfo.com) |
-| **Email Sequences** | [Instantly](https://instantly.ai), [Lemlist](https://lemlist.com), [Smartlead](https://smartlead.ai) |
-| **LinkedIn Content** | [Buffer](https://buffer.com), [Hootsuite](https://hootsuite.com), [Taplio](https://taplio.com) |
-| **Competitor Intel** | [Similarweb](https://similarweb.com), [SEMrush](https://semrush.com), [Ahrefs](https://ahrefs.com) |
-| **KPI Monitoring** | [Databox](https://databox.com), [Klipfolio](https://klipfolio.com), [AgencyAnalytics](https://agencyanalytics.com) |
+|---|---|
+| 8,159 automation workflows | [Zapier Templates](https://zapier.com/templates) |
+| Queue mode infinite scale | [Make.com](https://make.com) |
+| Universal error handler | [PagerDuty](https://pagerduty.com) |
+| MAE + n8n AI-automation bridge | [Activepieces](https://activepieces.com) |
+| Workflow version control | [GitHub Actions](https://github.com/features/actions) |
+| One-command workflow deploy | [Retool](https://retool.com) |
+| Redis queue backend | [Bull/BullMQ](https://bullmq.io) |
+| Credential encryption | [Vault by HashiCorp](https://vaultproject.io) |
+| Execution monitoring | [Datadog](https://datadoghq.com) |
+| Webhook auth layer | [Svix](https://svix.com) |
+| Data transformation | [Airbyte](https://airbyte.com) |
+| Sub-workflow pattern | [AWS Step Functions](https://aws.amazon.com/step-functions/) |
+
+---
 
 ## Star History
 
