@@ -1,156 +1,33 @@
-# hmz-n8n-workflows
+# n8n Workflow Archive
 
-> 8,159 n8n workflow JSONs — email, Slack, CRM, Shopify, social, AI, data, telegram, lead gen. Full MAE bridge for AI-driven automation.
+A large collection of exported n8n workflow JSON files. The Git tree checked on 2026-10-02 contains 8,313 JSON files in 8,134 folders under `workflows/`. These are file counts only: they do not establish that each file is a complete workflow, imports cleanly, or runs successfully.
 
-<p align="center">
-  <a href="https://github.com/hmzainjamil/hmz-n8n-workflows">Repository</a> ·
-  <a href="https://github.com/hmzainjamil/hmz-n8n-workflows/commits/main">Commits</a> ·
-  <a href="https://github.com/hmzainjamil/hmz-n8n-workflows/issues">Issues</a>
-</p>
+## Scope
 
-<p align="center"><img alt="Visibility" src="https://img.shields.io/badge/visibility-public-blue"> <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-active-success"> <img alt="Documentation" src="https://img.shields.io/badge/documentation-deep%20editorial-lightgrey"></p>
-
-<!-- HMZ DEEP README v1 -->
-
-## At a glance
-
-| Field | Current state |
+| Item | Evidence |
 |---|---|
-| Visibility | public |
-| Lifecycle | Active |
-| Repository size | 39771 KB |
-| Default branch | main |
-| Evidence basis | Current repository documentation and source-visible material |
+| Main content | Exported JSON and metadata beneath `workflows/` |
+| Runtime | No n8n instance or execution service is included in this repository |
+| Compatibility | Check each export against your installed n8n version and required node packages |
+| Verification | No workflows were imported or executed for this documentation change |
+| Security | Each export needs review for credentials, personal data, webhooks, and external side effects |
 
-## Why this exists
+The collection includes workflows for many services and tasks. Folder names are descriptive labels, not validation results. Use GitHub's [workflow folders](workflows/) to browse the archive.
 
-8,159 n8n workflow JSONs — email, Slack, CRM, Shopify, social, AI, data, telegram, lead gen. Full MAE bridge for AI-driven automation.
+## Import carefully
 
-This README separates documented capabilities from measured evidence and avoids converting roadmap ideas or external assumptions into implementation claims.
+1. Inspect the workflow JSON and associated metadata.
+2. Confirm the workflow's nodes, credential types, webhook paths, input data, external destinations, and write/send actions.
+3. Import into a non-production n8n instance or isolated workspace.
+4. Add credentials through n8n's credential manager; do not put secrets in exported JSON.
+5. Test with synthetic data, review execution logs, and keep the workflow inactive until approved.
 
-## 🧠 CONCEPTS
+A workflow may send email, alter records, post publicly, call external APIs, or expose a webhook. Review and test those effects before activation.
 
-| Feature | Location | Description |
-|---|---|---|
-| [N8N-Workflows Core](bin/) | `bin/` | Primary automation scripts and tools for hmz-n8n-workflows |
-| [MAE Integration](bin/mae-bridge.sh) | `bin/mae-bridge.sh` | 12-agent swarm on every task — automatic decompose, execute, synthesize |
-| [Tier 0 Routing](config/model-rules.json) | `config/model-rules.json` | Groq→Gemini→Bytez→DeepSeek — zero Claude tokens for sub-tasks |
-| [TCC Queue](tcc-routes/routes.json) | `tcc-routes/routes.json` | Task routing — 18 specialist agents, wave-batched for RAM safety |
-| [LaunchAgent](launchd/) | `launchd/` | macOS always-on service — KeepAlive=true, RunAtLoad=true |
-| [Hooks](hooks/) | `hooks/` | UserPromptSubmit, PostToolUse, Stop hooks wired for full automation |
-| [Skill Router](skills/skill-router/) | `skills/skill-router/` | Keyword → skill auto-activation on every prompt submission |
-| [n8n Workflows](workflows/) | `workflows/` | 8,159 workflow JSONs — grep before building anything from scratch |
-| [Paperclip Sync](bin/paperclip-sync.sh) | `bin/paperclip-sync.sh` | All outputs auto-saved to Paperclip AI company OS |
-| [Health Monitor](bin/health.sh) | `bin/health.sh` | Pings all endpoints — Slack alert + auto-restart on failure |
-| [Logs](logs/) | `logs/` | Timestamped run logs — searchable audit trail across sessions |
-| [Config](config/) | `config/` | API keys references, model routing rules, environment settings |
-| [Scripts](scripts/) | `scripts/` | Setup, teardown, testing, and benchmarking utility scripts |
-| [Templates](templates/) | `templates/` | Reusable output templates — PDF, Markdown, JSON, CSV |
-| [Docs](docs/) | `docs/` | Documentation, SOPs, architecture diagrams, runbooks |
-| [Tests](tests/) | `tests/` | Integration tests — verifies all API connections and workflows |
-| [Deployment](deploy/) | `deploy/` | Docker, LaunchAgent, systemd deployment configurations |
-| [Webhooks](webhooks/) | `webhooks/` | Inbound webhook handlers for external system triggers |
-| [Reports](reports/) | `reports/` | Auto-generated reports — ReportLab PDF, Markdown summaries |
-| [Cron](cron/) | `cron/` | Scheduled job configs — hourly, daily, weekly automation triggers |
-| [API Clients](api/) | `api/` | Thin API client wrappers for all external service integrations |
-| [Data](data/) | `data/` | Input datasets, lookup tables, static reference data files |
-| [Archive](archive/) | `archive/` | Historical outputs and versioned artifacts — never deleted |
-| [Backup](backup/) | `backup/` | Backup configs and restore scripts for all critical data |
-| [CLAUDE.md](CLAUDE.md) | `CLAUDE.md` | Repo-specific rules injected into every Claude session context |
+## Documentation and security
 
-## ⚙️ ARCHITECTURE
+See the [documentation index](docs/README.md) and [security reporting guidance](SECURITY.md). Report a suspected credential exposure through a private channel; do not include secrets in public issues.
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                HMZ AI STACK — TIER 0 ARCHITECTURE              │
-│                                                                │
-│  Every Prompt → skill-router → Tier 0 model → MAE swarm       │
-│                                                                │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
-│  │  Ollama  │  │  Groq    │  │ Gemini   │  │  Bytez   │     │
-│  │ GPU local│  │  70b     │  │  Flash   │  │ 100+ LLM │     │
-│  │  $0/run  │  │  free    │  │  free    │  │  free    │     │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
-│                         │                                      │
-│             MAE 12-agent swarm (TCC queue)                     │
-│             Groq-70B synthesis → final output                  │
-│                         │                                      │
-│  OpenCLI (90 adapters) · Composio (3000+ actions) · n8n       │
-│  Paperclip OS · MEMORY.md · ~/.claude/tcc-logs/               │
-└────────────────────────────────────────────────────────────────┘
-```
+## Maintenance
 
-| Layer | Technology | Cost |
-|---|---|---|
-| Local inference | Ollama + GPT4All (7 models) | $0 forever |
-| Cloud burst | Groq + Gemini + Bytez | $0 free tiers |
-| Orchestration | MAE + TCC + llm-burst | $0 (uses Tier 0) |
-| Automation | n8n 8,159 workflows | Self-hosted |
-| Memory | Paperclip AI + MEMORY.md | Zero-human |
-| Site automation | OpenCLI 90+ adapters | $0 no LLM cost |
-| SaaS actions | Composio 3000+ tools | Free tier |
-
-## 🚀 Quick Start
-
-```bash
-# Run 12-agent MAE swarm on any goal
-mae run "write a cold email sequence for B2B SaaS"
-
-# Fire tasks in parallel
-tcc blast "audit Google Ads" "spy Meta ads" "draft LinkedIn post"
-
-# Full agency daily ops (all divisions automated)
-mae daily
-
-# OpenCLI — scrape any site without LLM cost
-opencli linkedin search --query "SaaS founder"
-
-# Composio — execute any SaaS action
-composio execute hubspot create-contact --name "John" --email "j@co.com"
-
-# System status
-tcc-dashboard
-```
-
-## Usage
-
-No verified runtime command was available in the current README. Commands should be taken from the repository's executable entry points and package configuration.
-
-## ⚡ CONFIGURATION REFERENCE
-
-| Variable | Location | Value / Purpose |
-|---|---|---|
-| `GROQ_API_KEY` | `~/.zshrc` | Groq llama3-70b — fastest free cloud LLM |
-| `OPENROUTER_API_KEY` | `~/.zshrc` | OpenRouter — 100+ models via one endpoint |
-| `GOOGLE_API_KEY` | `~/.zshrc` | Gemini 2.0 Flash — 1M context free tier |
-| `BYTEZ_API_KEY` | `~/.zshrc` | <redacted secret> |
-| `DASHSCOPE_API_KEY` | `~/.zshrc` | Alibaba DashScope — Qwen models |
-| `LUMA_API_KEY` | `~/.zshrc` | Luma uni-1 image generation API |
-| `ARCADS_API_KEY` | `~/.zshrc` | Arcads AI actor video generation |
-| `AIRTABLE_API_KEY` | `~/.zshrc` | Airtable data automation API |
-| `NODE_PATH` | `~/.zshrc` | <local path> |
-| `OLLAMA_HOST` | `~/.zshrc` | http://localhost:11434 (always-on) |
-| `OLLAMA_NUM_GPU` | `LaunchAgent` | 1 — Metal GPU acceleration |
-| `N8N_HOST` | `~/.zshrc` | http://localhost:5678 (n8n server) |
-| `COMPOSIO_API_KEY` | `~/.zshrc` | Composio tool actions API |
-| `PAPERCLIP_URL` | `~/.zshrc` | http://127.0.0.1:3100 (company OS) |
-
-## Validation and evidence
-
-No dedicated test or evaluation section was available in the current README. Performance, production readiness, and outcome claims are therefore not asserted here.
-
-## Security
-
-Keep credentials outside the repository, validate untrusted inputs at system boundaries, and grant external tools only the permissions they require.
-
-## Limitations
-
-- This README reports the current documented state and does not convert planned functionality into completed functionality.
-- Quantitative claims should be backed by reproducible repository evidence or linked test artifacts.
-- External service behavior, provider limits, and current pricing are not inferred from repository documentation.
-
-
-
-## Maintainer
-
-[hmzainjamil](https://github.com/hmzainjamil)
+Keep source attribution and license terms with imported material. When updating counts, derive them from the repository tree and record the date. Report import or execution results only after testing against a stated n8n version and configuration.
